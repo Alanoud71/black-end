@@ -1,0 +1,47 @@
+/express-locallibrary-tutorial  /
+  /models
+  
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var Jobseekers  = new Schema(
+  {
+    first_name: {type: String, required: true, max: 100},
+    family_name: {type: String, required: true, max: 100},
+    University:{type: String},
+    Email:{type: String},
+    date_of_birth: {type: Date},
+  }
+);
+
+Jobseekers 
+.virtual('name')
+.get(function () {
+  return this.family_name + ', ' + this.first_name;
+}
+ );
+// Virtual for author's lifespan
+Jobseekers 
+
+.virtual('lifespan')
+.get(function () {
+  return (  this.University.get -this.Email.get - this.date_of_birth.getYear()).toString();
+});
+
+// Virtual for author's URL
+Jobseekers 
+.virtual('url')
+.get(function () {
+  return '/catalog/author/' + this._id;
+});
+//Export model
+module.exports = mongoose.model('Author', AuthorSchema);
+render() 
+{ 
+    return (
+       <div>
+          <h1>Jobseekers information </h1>
+       </div>
+    )
+ }
+
+ 
